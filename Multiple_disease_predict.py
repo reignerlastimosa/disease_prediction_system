@@ -24,11 +24,10 @@ with st.sidebar:
                            icons = ['activity','heart','person'],
                            default_index = 0)
 
-if(selected == 'Diabetes Prediction'):
-    
-
+if selected == 'Diabetes Prediction':
     st.title('Diabetes Prediction using ML')
-    
+
+    # Define input fields
     Pregnancies = st.text_input('Number of Pregnancies')
     Glucose = st.text_input('Glucose Level')
     BloodPressure = st.text_input('Blood Pressure value')
@@ -37,24 +36,28 @@ if(selected == 'Diabetes Prediction'):
     BMI = st.text_input('BMI value')
     DiabetesPedigreeFunction = st.text_input('Diabetes Pedigree Function value')
     Age = st.text_input('Age of the Person')
-    
-    
 
     diab_diagnosis = ''
-    
- 
-    
+
+    # Check if all fields are filled before prediction
     if st.button('Diabetes Test Result'):
-        diab_prediction = diabetes_model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
-        
-        if (diab_prediction[0]==1):
-            diab_diagnosis = 'The person is Diabetic'
-            
+        if all([Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]):
+            # Convert input values to float for prediction
+            inputs = [float(Pregnancies), float(Glucose), float(BloodPressure), float(SkinThickness), float(Insulin), float(BMI), float(DiabetesPedigreeFunction), float(Age)]
+
+            # Make prediction
+            diab_prediction = diabetes_model.predict([inputs])
+
+            # Determine diagnosis based on prediction
+            if diab_prediction[0] == 1:
+                diab_diagnosis = 'The person is Diabetic'
+            else:
+                diab_diagnosis = 'The person is Not Diabetic'
         else:
-            diab_diagnosis = 'The person is Not Diabetic'
-            
-            
+            st.error("Please fill in all required fields.")
+
     st.success(diab_diagnosis)
+
     
     
     
@@ -99,11 +102,9 @@ if(selected == 'Heart Disease Prediction'):
     
 
 if(selected == 'Parkinsons Prediction'):
-    
-   
     st.title('Parkinsons Prediction using ML')
-    
 
+    # Define input fields
     fo = st.text_input('MDVP:Fo(Hz)')
     fhi = st.text_input('MDVP:Fhi(Hz)')
     flo = st.text_input('MDVP:Flo(Hz)')
@@ -126,21 +127,27 @@ if(selected == 'Parkinsons Prediction'):
     spread2 = st.text_input('spread2')
     D2 = st.text_input('D2')
     PPE = st.text_input('PPE')
-        
 
     parkinsons_diagnosis = ''
- 
-        
+    
+    # Check if all fields are filled before prediction
     if st.button('Parkinsons Test Result'):
-            parkinsons_prediction = parkinsons_model.predict([[fo, fhi, flo, Jitter_percent, Jitter_Abs, RAP, PPQ, DDP, Shimmer, Shimmer_dB, APQ3, APQ5, APQ, DDA, NHR, HNR, RPDE, DFA, spread1, spread2, D2, PPE]])
+        if all([fo, fhi, flo, Jitter_percent, Jitter_Abs, RAP, PPQ, DDP, Shimmer, Shimmer_dB, APQ3, APQ5, APQ, DDA, NHR, HNR, RPDE, DFA, spread1, spread2, D2, PPE]):
+            # Convert input values to float for prediction
+            inputs = [float(fo), float(fhi), float(flo), float(Jitter_percent), float(Jitter_Abs), float(RAP), float(PPQ), float(DDP), float(Shimmer), float(Shimmer_dB), float(APQ3), float(APQ5), float(APQ), float(DDA), float(NHR), float(HNR), float(RPDE), float(DFA), float(spread1), float(spread2), float(D2), float(PPE)]
             
-            if (parkinsons_prediction[0]==1):
+            # Make prediction
+            parkinsons_prediction = parkinsons_model.predict([inputs])
+            
+            # Determine diagnosis based on prediction
+            if parkinsons_prediction[0] == 1:
                 parkinsons_diagnosis = 'The person is suffering from Parkinsons disease'
-                
             else:
                 parkinsons_diagnosis = 'The person is Not suffering from Parkinsons disease'
-                
+        else:
+            st.error("Please fill in all required fields.")
                 
     st.success(parkinsons_diagnosis)
+
         
         
