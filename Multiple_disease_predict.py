@@ -14,18 +14,28 @@ heart_disease_model = pickle.load(open('./Saved models/heart_disease_model.sav',
 parkinsons_model = pickle.load(open('./Saved models/parkinsons_model.sav','rb'))
 
 
+st.markdown(
+    """
+    <style>
+    .sidebar-content .widget-item-label {
+        color: green;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 with st.sidebar:
     
     selected = option_menu('DocAI: Disease Prediction System',
-                           ['Diabetes Prediction',
-                            'Heart Disease Prediction',
-                            'Parkinsons Prediction'],
+                           ['Diabetes',
+                            'Heart Disease',
+                            'Parkinsons'],
                            icons = ['activity','heart','person'],
                            default_index = 0)
 
-if selected == 'Diabetes Prediction':
-    st.title('Diabetes Prediction using ML')
+if selected == 'Diabetes':
+    st.title('Diabetes Prediction')
 
     # Define input fields
     Pregnancies = st.text_input('Number of Pregnancies')
@@ -63,10 +73,10 @@ if selected == 'Diabetes Prediction':
     
             
 
-if(selected == 'Heart Disease Prediction'):
+if(selected == 'Heart Disease'):
     
    
-    st.title('Heart Disease Prediction using ML')
+    st.title('Heart Disease Prediction')
     
     age = st.number_input('Age of the Person')
     sex = st.number_input('Sex of the Person')
@@ -101,8 +111,8 @@ if(selected == 'Heart Disease Prediction'):
     st.success(heart_diagnosis)
     
 
-if(selected == 'Parkinsons Prediction'):
-    st.title('Parkinsons Prediction using ML')
+if(selected == 'Parkinsons'):
+    st.title('Parkinsons Prediction')
 
     # Define input fields
     fo = st.text_input('MDVP:Fo(Hz)')
